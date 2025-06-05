@@ -53,13 +53,9 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              <Image 
-                src="/logo-dark.svg" 
-                alt="AESoftware Logo" 
-                width={180} 
-                height={54} 
-                className="mb-6 w-[160px] sm:w-[180px] md:w-[200px] h-auto" 
-              />
+              <span className="text-2xl font-bold text-primary">
+                AE Software
+              </span>
             </motion.div>
             
             <motion.h1 
