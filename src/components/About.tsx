@@ -1,16 +1,35 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import TeamDetail from './TeamDetail';
 
 const About = () => {
+  const [selectedMember, setSelectedMember] = useState<any>(null);
+  
   const teamMembers = [
     {
+      id: 1,
       name: 'Asım Eren Özdemir',
       position: 'Kurucu & CEO',
-      bio: 'Yazılım geliştirme ve teknoloji alanında 10+ yıl deneyime sahip. Modern web teknolojileri konusunda uzman.',
-      image: 'https://media.licdn.com/dms/image/v2/D4D03AQHpLoobCwN8bQ/profile-displayphoto-shrink_200_200/B4DZXYTkluHsAY-/0/1743090765066?e=1754524800&v=beta&t=geO1OCrd2v4YRRb4rJT6fh-0T8NP403i_Ry-6eL1Gg4'
+      bio: 'Yazılım geliştirme ve teknoloji alanında 5+ yıl deneyime sahip. Modern web teknolojileri konusunda uzman.',
+      image: 'https://media.licdn.com/dms/image/v2/D4D03AQHpLoobCwN8bQ/profile-displayphoto-shrink_200_200/B4DZXYTkluHsAY-/0/1743090765066?e=1754524800&v=beta&t=geO1OCrd2v4YRRb4rJT6fh-0T8NP403i_Ry-6eL1Gg4',
+      skills: ['React', 'Next.js', 'TypeScript', 'Node.js', 'AWS', 'DevOps'],
+      experience: '5+ yıllık yazılım geliştirme deneyimi. Full-stack geliştirme, sistem mimarisi ve ekip yönetimi konularında uzman.',
+      education: 'Bilgisayar Programcılığı, İstanbul Ticaret Üniversitesi. Çeşitli sertifikasyonlar: Google Flutter Developer',
+      projects: [
+        'E-ticaret platformu geliştirme (100K+ kullanıcı)',
+        'Mikroservis mimarisi tasarımı ve implementasyonu',
+        'DevOps süreçlerinin otomasyonu',
+        'Mobil uygulama backend geliştirme'
+      ],
+      social: {
+        linkedin: 'https://linkedin.com/in/asimereno',
+        github: 'https://github.com/asimereno',
+        email: 'asim@aesoftware.com'
+      }
     }
   ];
 
@@ -36,6 +55,15 @@ const About = () => {
       icon: '🌱'
     }
   ];
+
+  if (selectedMember) {
+    return (
+      <TeamDetail 
+        member={selectedMember} 
+        onBack={() => setSelectedMember(null)} 
+      />
+    );
+  }
 
   return (
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -85,13 +113,13 @@ const About = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <p>
-                AESoftware, 2015 yılında Ali Eren Özdemir tarafından kuruldu. Başlangıçta küçük bir ekiple yola çıkan şirketimiz, zamanla büyüyerek Türkiye&apos;nin önde gelen yazılım şirketlerinden biri haline geldi.
+                AESoftware, 2020 yılında Asım Eren Özdemir tarafından kuruldu. 
               </p>
               <p>
                 Misyonumuz, işletmelerin dijital dönüşümünü en verimli şekilde gerçekleştirmelerine yardımcı olmak ve kullanıcı dostu, yenilikçi çözümler sunmaktır. Vizyonumuz ise global pazarda tanınan ve tercih edilen bir teknoloji şirketi olmaktır.
               </p>
               <p>
-                Bugüne kadar 200&apos;den fazla başarılı projeye imza attık ve 50&apos;den fazla kurumsal müşteriye hizmet verdik. Ekibimiz, alanında uzman 20 profesyonelden oluşmaktadır.
+                Bugüne kadar 10&apos;den fazla başarılı projeye imza attık ve 5&apos;den fazla kurumsal müşteriye hizmet verdik. 
               </p>
             </CardContent>
           </Card>
@@ -145,33 +173,39 @@ const About = () => {
             Ekibimiz
           </motion.h3>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member, index) => (
-              <motion.div 
-                key={member.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <Card className="h-full text-center border-foreground/10 hover:shadow-lg transition-all duration-300">
-                  <CardHeader>
-                    <div className="flex justify-center mb-4">
-                      <Avatar className="w-24 h-24">
-                        <AvatarImage src={member.image} alt={member.name} />
-                        <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                      </Avatar>
-                    </div>
-                    <CardTitle className="text-xl">{member.name}</CardTitle>
-                    <CardDescription className="text-primary font-medium">{member.position}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">{member.bio}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+          <div className="flex justify-center">
+            <div className="max-w-sm">
+              {teamMembers.map((member, index) => (
+                <motion.div 
+                  key={member.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <Card 
+                    className="h-full text-center border-foreground/10 hover:shadow-lg transition-all duration-300 cursor-pointer group"
+                    onClick={() => setSelectedMember(member)}
+                  >
+                    <CardHeader>
+                      <div className="flex justify-center mb-4">
+                        <Avatar className="w-24 h-24 group-hover:scale-110 transition-transform duration-300">
+                          <AvatarImage src={member.image} alt={member.name} />
+                          <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        </Avatar>
+                      </div>
+                      <CardTitle className="text-xl group-hover:text-primary transition-colors">{member.name}</CardTitle>
+                      <CardDescription className="text-primary font-medium">{member.position}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">{member.bio}</p>
+                      <p className="text-xs text-primary font-medium">Detayları görüntülemek için tıklayın</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+               ))}
+            </div>
           </div>
         </div>
       </div>
