@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { FaRocket, FaUsers, FaBriefcase, FaPhone, FaStar } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -24,20 +24,29 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navbarClasses = `fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'py-2 bg-card shadow-md' : 'py-4 bg-card backdrop-blur-lg'}`;
+  const navbarClasses = `fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'py-2 bg-card/95 shadow-lg backdrop-blur-xl border-b border-border/20' : 'py-3 sm:py-4 bg-card/90 backdrop-blur-xl'}`;
 
   const logoSrc = theme === 'dark' ? '/logo-dark.svg' : '/logo.svg';
 
   return (
     <nav className={navbarClasses}>
-      <div className="container mx-auto px-4 flex justify-between items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center min-h-[60px] sm:min-h-[70px]">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <Image src={logoSrc} alt="AE Software Logo" width={150} height={40} priority />
+        <Link href="/" className="flex items-center flex-shrink-0 relative z-10">
+          <div className="flex items-center justify-center">
+            <Image 
+              src={logoSrc} 
+              alt="AE Software Logo" 
+              width={140} 
+              height={36} 
+              className="w-auto h-8 sm:h-9 md:h-10 transition-all duration-300 hover:scale-105" 
+              priority 
+            />
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center space-x-6">
+        <div className="hidden lg:flex items-center space-x-6 relative z-10">
           <Link href="/#services" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors">
             Hizmetler
           </Link>
@@ -59,7 +68,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu */}
-        <div className="flex items-center space-x-4 lg:hidden">
+        <div className="flex items-center space-x-2 sm:space-x-3 lg:hidden relative z-10">
           <ThemeToggle />
           <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
             <SheetTrigger asChild>
@@ -91,24 +100,24 @@ const Navbar = () => {
             </SheetTrigger>
             <SheetContent 
               side="right" 
-              className="w-[300px] sm:w-[350px] border-l border-border/50 backdrop-blur-xl bg-background/95"
+              className="w-[280px] sm:w-[320px] border-l border-border/50 backdrop-blur-xl bg-background/95 p-0"
             >
               <div className="flex flex-col h-full">
                 {/* Header */}
-                <div className="flex items-center justify-between pb-6 border-b border-border/20">
-                  <Image src={logoSrc} alt="AE Software Logo" width={120} height={32} />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="hover:bg-destructive/10 hover:text-destructive transition-colors"
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
+                <div className="flex items-center justify-center py-6 border-b border-border/20">
+                  <div className="flex items-center justify-center bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg px-4 py-2">
+                    <Image 
+                      src={logoSrc} 
+                      alt="AE Software Logo" 
+                      width={130} 
+                      height={34} 
+                      className="w-auto h-8 transition-all duration-300" 
+                    />
+                  </div>
                 </div>
 
                 {/* Navigation */}
-                <nav className="flex flex-col gap-2 py-6 flex-1">
+                <nav className="flex flex-col gap-1 py-4 flex-1 px-4">
                   {[
                      { href: '/#services', label: 'Hizmetler', icon: FaRocket },
                      { href: '/#about', label: 'Hakkımızda', icon: FaUsers },
@@ -119,10 +128,10 @@ const Navbar = () => {
                       key={item.href}
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`group flex items-center gap-4 px-4 py-3 rounded-xl text-lg font-medium text-foreground/80 hover:text-primary hover:bg-primary/5 transition-all duration-300 transform hover:translate-x-2 animate-in slide-in-from-right-5`}
+                      className={`group flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium text-foreground/80 hover:text-primary hover:bg-primary/5 transition-all duration-300 transform hover:translate-x-1 animate-in slide-in-from-right-5`}
                       style={{ animationDelay: `${index * 100}ms` }}
                     >
-                      <item.icon className="text-xl group-hover:scale-110 transition-transform duration-300 text-primary" />
+                      <item.icon className="text-lg group-hover:scale-110 transition-transform duration-300 text-primary" />
                       <span className="group-hover:font-semibold transition-all duration-300">
                         {item.label}
                       </span>
@@ -134,7 +143,7 @@ const Navbar = () => {
                 </nav>
 
                 {/* CTA Button */}
-                <div className="pt-6 border-t border-border/20">
+                <div className="pt-4 border-t border-border/20 px-4 pb-4">
                   <Button 
                     asChild 
                     className="w-full rounded-xl h-12 text-base font-semibold bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
