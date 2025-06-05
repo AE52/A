@@ -6,8 +6,26 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import TeamDetail from './TeamDetail';
 
+interface TeamMember {
+  id: number;
+  name: string;
+  position: string;
+  bio: string;
+  image: string;
+  skills: string[];
+  experience: string;
+  education: string;
+  projects: string[];
+  social: {
+    linkedin?: string;
+    twitter?: string;
+    github?: string;
+    email?: string;
+  };
+}
+
 const About = () => {
-  const [selectedMember, setSelectedMember] = useState<any>(null);
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   
   const teamMembers = [
     {
