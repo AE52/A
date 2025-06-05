@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const About = () => {
   const teamMembers = [
@@ -80,13 +81,13 @@ const About = () => {
           <div className="glass-effect rounded-2xl p-8">
             <h3 className="text-2xl font-bold mb-6">Hikayemiz</h3>
             <p className="mb-4">
-              AESoftware, 2015 yılında Ali Eren Özdemir tarafından kuruldu. Başlangıçta küçük bir ekiple yola çıkan şirketimiz, zamanla büyüyerek Türkiye'nin önde gelen yazılım şirketlerinden biri haline geldi.
+              AESoftware, 2015 yılında Ali Eren Özdemir tarafından kuruldu. Başlangıçta küçük bir ekiple yola çıkan şirketimiz, zamanla büyüyerek Türkiye&apos;nin önde gelen yazılım şirketlerinden biri haline geldi.
             </p>
             <p className="mb-4">
               Misyonumuz, işletmelerin dijital dönüşümünü en verimli şekilde gerçekleştirmelerine yardımcı olmak ve kullanıcı dostu, yenilikçi çözümler sunmaktır. Vizyonumuz ise global pazarda tanınan ve tercih edilen bir teknoloji şirketi olmaktır.
             </p>
             <p>
-              Bugüne kadar 200'den fazla başarılı projeye imza attık ve 50'den fazla kurumsal müşteriye hizmet verdik. Ekibimiz, alanında uzman 20 profesyonelden oluşmaktadır.
+              Bugüne kadar 200&apos;den fazla başarılı projeye imza attık ve 50&apos;den fazla kurumsal müşteriye hizmet verdik. Ekibimiz, alanında uzman 20 profesyonelden oluşmaktadır.
             </p>
           </div>
         </motion.div>
@@ -146,10 +147,12 @@ const About = () => {
                 whileHover={{ y: -5 }}
               >
                 <div className="relative w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
-                  <img 
+                  <Image 
                     src={member.image} 
                     alt={member.name} 
-                    className="object-cover w-full h-full"
+                    className="object-cover"
+                    width={96}
+                    height={96}
                   />
                 </div>
                 <h4 className="text-xl font-bold mb-1 text-center">{member.name}</h4>

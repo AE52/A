@@ -2,7 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 // Dinamik olarak bileşenleri yükle
 const Navbar = dynamic(() => import('@/components/Navbar'), { ssr: false });

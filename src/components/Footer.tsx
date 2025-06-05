@@ -174,13 +174,9 @@ const Footer = () => {
             
             <motion.div variants={itemVariants} className="flex items-start space-x-3">
               <div className="text-primary mt-1">📧</div>
-              <p className="text-foreground/70">info@aesoftware.com</p>
+              <p className="text-foreground/70">asimerenozdemir@gmail.com</p>
             </motion.div>
             
-            <motion.div variants={itemVariants} className="flex items-start space-x-3">
-              <div className="text-primary mt-1">📱</div>
-              <p className="text-foreground/70">+90 (555) 123 45 67</p>
-            </motion.div>
           </motion.div>
         </div>
         

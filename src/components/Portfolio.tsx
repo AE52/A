@@ -2,6 +2,25 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Image from 'next/image';
+
+// StarRating bileşeni
+const StarRating = ({ rating }: { rating: number }) => {
+  return (
+    <div className="flex">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <span
+          key={star}
+          className={`text-lg ${
+            star <= rating ? 'text-yellow-400' : 'text-gray-300'
+          }`}
+        >
+          ★
+        </span>
+      ))}
+    </div>
+  );
+};
 
 const Portfolio = () => {
   const [activeTab, setActiveTab] = useState('projects');
@@ -19,7 +38,7 @@ const Portfolio = () => {
       id: 2,
       title: 'BT Personeli',
       client: 'İstanbul Şişli Meslek Yüksekokulu',
-      description: 'İstanbul Şişli Meslek Yüksekokulu\'nda BT Personeli stajyerliği sırasında, BT operasyonları ve desteğinin çeşitli yönlerinde uygulamalı deneyim kazandım. Ağ hizmetleri, bilgisayar ağları, veri ağları ve ağ altyapısı ile çalışma görevim vardı. Ayrıca ağ desteği sağladım ve bilgisayar donanımı, BT operasyonları ve teknoloji hizmetleri üzerinde çalıştım. Bu deneyim, Şişli, İstanbul\'da yerinde çalışırken BT sistemlerini yönetme ve sorun giderme konusunda güçlü bir temel geliştirmemi sağladı.',
+      description: 'İstanbul Şişli Meslek Yüksekokulu&apos;nda BT Personeli stajyerliği sırasında, BT operasyonları ve desteğinin çeşitli yönlerinde uygulamalı deneyim kazandım. Ağ hizmetleri, bilgisayar ağları, veri ağları ve ağ altyapısı ile çalışma görevim vardı. Ayrıca ağ desteği sağladım ve bilgisayar donanımı, BT operasyonları ve teknoloji hizmetleri üzerinde çalıştım. Bu deneyim, Şişli, İstanbul&apos;da yerinde çalışırken BT sistemlerini yönetme ve sorun giderme konusunda güçlü bir temel geliştirmemi sağladı.',
       image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80',
       tags: ['BT Desteği', 'Ağ Yönetimi', 'Donanım']
     },
@@ -65,10 +84,72 @@ const Portfolio = () => {
     }
   ];
   
-
+  const testimonials = [
+    {
+      name: 'Ahmet Yılmaz',
+      position: 'CEO, TechCorp',
+      content: 'AE Software ile çalışmak harika bir deneyimdi. Projemizi zamanında ve beklentilerimizi aşarak teslim ettiler.',
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80',
+      rating: 5
+    },
+    {
+      name: 'Elif Kaya',
+      position: 'CTO, StartupX',
+      content: 'Teknik uzmanlıkları ve profesyonel yaklaşımları sayesinde dijital dönüşümümüzü başarıyla gerçekleştirdik.',
+      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80',
+      rating: 5
+    },
+    {
+      name: 'Mehmet Demir',
+      position: 'Proje Yöneticisi, BigCorp',
+      content: 'Müşteri odaklı yaklaşımları ve kaliteli çözümleri ile işimizi bir üst seviyeye taşıdılar.',
+      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80',
+      rating: 4
+    },
+    {
+      name: 'Zeynep Özkan',
+      position: 'Pazarlama Müdürü, RetailPlus',
+      content: 'E-ticaret platformumuz sayesinde satışlarımız %200 arttı. Kesinlikle tavsiye ederim.',
+      image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80',
+      rating: 5
+    }
+  ];
   
+  const clients = [
+    {
+      name: 'TechCorp',
+      logo: 'https://via.placeholder.com/150x60/4F46E5/FFFFFF?text=TechCorp'
+    },
+    {
+      name: 'StartupX',
+      logo: 'https://via.placeholder.com/150x60/059669/FFFFFF?text=StartupX'
+    },
+    {
+      name: 'BigCorp',
+      logo: 'https://via.placeholder.com/150x60/DC2626/FFFFFF?text=BigCorp'
+    },
+    {
+      name: 'RetailPlus',
+      logo: 'https://via.placeholder.com/150x60/7C3AED/FFFFFF?text=RetailPlus'
+    },
+    {
+      name: 'FinanceHub',
+      logo: 'https://via.placeholder.com/150x60/EA580C/FFFFFF?text=FinanceHub'
+    },
+    {
+      name: 'HealthTech',
+      logo: 'https://via.placeholder.com/150x60/0891B2/FFFFFF?text=HealthTech'
+    },
+    {
+      name: 'EduSoft',
+      logo: 'https://via.placeholder.com/150x60/BE185D/FFFFFF?text=EduSoft'
+    },
+    {
+      name: 'GreenEnergy',
+      logo: 'https://via.placeholder.com/150x60/16A34A/FFFFFF?text=GreenEnergy'
+    }
+  ];
 
-  
   return (
     <section id="portfolio" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background elements */}
@@ -114,7 +195,22 @@ const Portfolio = () => {
             >
               Projeler
             </motion.button>
-
+            <motion.button
+              className={`px-6 py-2 rounded-md ${activeTab === 'testimonials' ? 'bg-primary text-white' : 'text-foreground hover:bg-foreground/5'}`}
+              onClick={() => setActiveTab('testimonials')}
+              whileHover={{ scale: activeTab !== 'testimonials' ? 1.05 : 1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Müşteri Yorumları
+            </motion.button>
+            <motion.button
+              className={`px-6 py-2 rounded-md ${activeTab === 'clients' ? 'bg-primary text-white' : 'text-foreground hover:bg-foreground/5'}`}
+              onClick={() => setActiveTab('clients')}
+              whileHover={{ scale: activeTab !== 'clients' ? 1.05 : 1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Müşteriler
+            </motion.button>
           </div>
         </div>
         
@@ -137,10 +233,12 @@ const Portfolio = () => {
                 whileHover={{ y: -5 }}
               >
                 <div className="relative h-48 mb-4 overflow-hidden rounded-lg">
-                  <img 
+                  <Image 
                     src={project.image} 
                     alt={project.title} 
-                    className="object-cover w-full h-full transition-transform duration-300 hover:scale-110"
+                    className="object-cover transition-transform duration-300 hover:scale-110"
+                    width={500}
+                    height={300}
                   />
                 </div>
                 <h3 className="text-xl font-bold mb-1">{project.title}</h3>
@@ -181,10 +279,12 @@ const Portfolio = () => {
               >
                 <div className="flex items-center mb-4">
                   <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <img 
+                    <Image 
                       src={testimonial.image} 
                       alt={testimonial.name} 
-                      className="object-cover w-full h-full"
+                      className="object-cover"
+                      width={48}
+                      height={48}
                     />
                   </div>
                   <div>
@@ -195,7 +295,7 @@ const Portfolio = () => {
                     <StarRating rating={testimonial.rating} />
                   </div>
                 </div>
-                <p className="text-secondary italic">"{testimonial.content}"</p>
+                <p className="text-secondary italic">&ldquo;{testimonial.content}&rdquo;</p>
               </motion.div>
             ))}
           </motion.div>
@@ -219,10 +319,12 @@ const Portfolio = () => {
                 viewport={{ once: true }}
                 whileHover={{ y: -5, scale: 1.02 }}
               >
-                <img 
+                <Image 
                   src={client.logo} 
                   alt={client.name} 
                   className="max-w-full max-h-16"
+                  width={150}
+                  height={60}
                 />
               </motion.div>
             ))}

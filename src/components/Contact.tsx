@@ -118,15 +118,7 @@ const Contact = () => {
                 </div>
               </motion.div>
               
-              <motion.div variants={itemVariants} className="flex items-start mb-6">
-                <div className="bg-primary/10 p-3 rounded-full mr-4">
-                  <FaPhone className="text-primary text-xl" />
-                </div>
-                <div>
-                  <h4 className="font-medium text-foreground">Telefon</h4>
-                  <p className="text-foreground/70 mt-1">+90 (555) 123 45 67</p>
-                </div>
-              </motion.div>
+             
               
               <motion.div variants={itemVariants} className="flex items-start mb-8">
                 <div className="bg-primary/10 p-3 rounded-full mr-4">
@@ -134,7 +126,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-foreground">E-posta</h4>
-                  <p className="text-foreground/70 mt-1">info@aesoftware.com</p>
+                  <p className="text-foreground/70 mt-1">asimerenozdemir@gmail.com</p>
                 </div>
               </motion.div>
               
