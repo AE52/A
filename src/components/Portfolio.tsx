@@ -3,6 +3,10 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import Image from 'next/image';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 // StarRating bileşeni
 const StarRating = ({ rating }: { rating: number }) => {
@@ -185,151 +189,137 @@ const Portfolio = () => {
         </motion.div>
         
         {/* Tab Navigation */}
-        <div className="flex justify-center mb-12">
-          <div className="inline-flex rounded-lg glass-effect p-1">
-            <motion.button
-              className={`px-6 py-2 rounded-md ${activeTab === 'projects' ? 'bg-primary text-white' : 'text-foreground hover:bg-foreground/5'}`}
-              onClick={() => setActiveTab('projects')}
-              whileHover={{ scale: activeTab !== 'projects' ? 1.05 : 1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Projeler
-            </motion.button>
-            <motion.button
-              className={`px-6 py-2 rounded-md ${activeTab === 'testimonials' ? 'bg-primary text-white' : 'text-foreground hover:bg-foreground/5'}`}
-              onClick={() => setActiveTab('testimonials')}
-              whileHover={{ scale: activeTab !== 'testimonials' ? 1.05 : 1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Müşteri Yorumları
-            </motion.button>
-            <motion.button
-              className={`px-6 py-2 rounded-md ${activeTab === 'clients' ? 'bg-primary text-white' : 'text-foreground hover:bg-foreground/5'}`}
-              onClick={() => setActiveTab('clients')}
-              whileHover={{ scale: activeTab !== 'clients' ? 1.05 : 1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Müşteriler
-            </motion.button>
-          </div>
-        </div>
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-12">
+            <TabsTrigger value="projects">Projeler</TabsTrigger>
+            <TabsTrigger value="testimonials">Müşteri Yorumları</TabsTrigger>
+            <TabsTrigger value="clients">Müşteriler</TabsTrigger>
+          </TabsList>
         
-        {/* Projects Tab */}
-        {activeTab === 'projects' && (
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {projects.map((project, index) => (
-              <motion.div 
-                key={project.id}
-                className="card overflow-hidden theme-transition"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="relative h-48 mb-4 overflow-hidden rounded-lg">
-                  <Image 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="object-cover transition-transform duration-300 hover:scale-110"
-                    width={500}
-                    height={300}
-                  />
-                </div>
-                <h3 className="text-xl font-bold mb-1">{project.title}</h3>
-                <p className="text-primary text-sm mb-3">Müşteri: {project.client}</p>
-                <p className="text-secondary mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map(tag => (
-                    <span 
-                      key={tag} 
-                      className="text-xs px-3 py-1 rounded-full bg-foreground/5 text-secondary"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
+          <TabsContent value="projects">
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {projects.map((project, index) => (
+                <motion.div 
+                  key={project.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <Card className="overflow-hidden h-full hover:shadow-lg transition-all duration-300">
+                    <div className="relative h-48 overflow-hidden">
+                      <Image 
+                        src={project.image} 
+                        alt={project.title} 
+                        className="object-cover transition-transform duration-300 hover:scale-110"
+                        fill
+                      />
+                    </div>
+                    <CardHeader>
+                      <CardTitle className="text-lg">{project.title}</CardTitle>
+                      <CardDescription className="text-primary font-medium">
+                        Müşteri: {project.client}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.tags.map(tag => (
+                          <Badge key={tag} variant="secondary" className="text-xs">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </TabsContent>
         
-        {/* Testimonials Tab */}
-        {activeTab === 'testimonials' && (
-          <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {testimonials.map((testimonial, index) => (
-              <motion.div 
-                key={testimonial.name}
-                className="card theme-transition"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
+          <TabsContent value="testimonials">
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {testimonials.map((testimonial, index) => (
+                <motion.div 
+                  key={testimonial.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5 }}
+                >
+                  <Card className="h-full hover:shadow-lg transition-all duration-300">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-4">
+                          <Avatar>
+                            <AvatarImage src={testimonial.image} alt={testimonial.name} />
+                            <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <CardTitle className="text-base">{testimonial.name}</CardTitle>
+                            <CardDescription>{testimonial.position}</CardDescription>
+                          </div>
+                        </div>
+                        <div className="flex items-center">
+                          <StarRating rating={testimonial.rating} />
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground italic">
+                        &ldquo;{testimonial.content}&rdquo;
+                      </p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </TabsContent>
+        
+          <TabsContent value="clients">
+            <motion.div 
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {clients.map((client, index) => (
+                <motion.div 
+                  key={client.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                >
+                  <Card className="flex items-center justify-center p-6 h-24 hover:shadow-lg transition-all duration-300">
                     <Image 
-                      src={testimonial.image} 
-                      alt={testimonial.name} 
-                      className="object-cover"
-                      width={48}
-                      height={48}
+                      src={client.logo} 
+                      alt={client.name} 
+                      className="max-w-full max-h-16 object-contain"
+                      width={150}
+                      height={60}
                     />
-                  </div>
-                  <div>
-                    <h4 className="font-bold">{testimonial.name}</h4>
-                    <p className="text-sm text-secondary">{testimonial.position}</p>
-                  </div>
-                  <div className="ml-auto">
-                    <StarRating rating={testimonial.rating} />
-                  </div>
-                </div>
-                <p className="text-secondary italic">&ldquo;{testimonial.content}&rdquo;</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
-        
-        {/* Clients Tab */}
-        {activeTab === 'clients' && (
-          <motion.div 
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {clients.map((client, index) => (
-              <motion.div 
-                key={client.name}
-                className="card flex items-center justify-center p-6 theme-transition"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5, scale: 1.02 }}
-              >
-                <Image 
-                  src={client.logo} 
-                  alt={client.name} 
-                  className="max-w-full max-h-16"
-                  width={150}
-                  height={60}
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-        )}
+                  </Card>
+                </motion.div>
+              ))}
+            </motion.div>
+          </TabsContent>
+        </Tabs>
       </div>
     </section>
   );

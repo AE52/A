@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const Hero = () => {
   return (
@@ -11,7 +13,7 @@ const Hero = () => {
       
       {/* Animated circles */}
       <motion.div 
-        className="absolute top-20 right-20 w-64 h-64 rounded-full bg-primary/10 blur-3xl"
+        className="absolute top-10 sm:top-20 right-4 sm:right-20 w-32 sm:w-48 md:w-64 h-32 sm:h-48 md:h-64 rounded-full bg-primary/10 blur-3xl"
         animate={{
           scale: [1, 1.2, 1],
           opacity: [0.3, 0.2, 0.3],
@@ -24,7 +26,7 @@ const Hero = () => {
       />
       
       <motion.div 
-        className="absolute bottom-20 left-20 w-80 h-80 rounded-full bg-accent/10 blur-3xl"
+        className="absolute bottom-10 sm:bottom-20 left-4 sm:left-20 w-40 sm:w-60 md:w-80 h-40 sm:h-60 md:h-80 rounded-full bg-accent/10 blur-3xl"
         animate={{
           scale: [1, 1.3, 1],
           opacity: [0.2, 0.3, 0.2],
@@ -38,7 +40,7 @@ const Hero = () => {
       />
       
       <div className="container mx-auto relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Text content */}
           <motion.div 
             className="flex-1 text-left"
@@ -84,21 +86,27 @@ const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8, duration: 0.8 }}
             >
-              <motion.button 
-                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors text-sm sm:text-base w-full sm:w-auto"
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Hizmetlerimiz
-              </motion.button>
+                <Button asChild size="lg" className="rounded-full w-full sm:w-auto">
+                  <Link href="/#services">
+                    Hizmetlerimiz
+                  </Link>
+                </Button>
+              </motion.div>
               
-              <motion.button 
-                className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-foreground/20 font-medium hover:bg-foreground/5 transition-colors text-sm sm:text-base w-full sm:w-auto"
+              <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                İletişime Geçin
-              </motion.button>
+                <Button asChild variant="outline" size="lg" className="rounded-full w-full sm:w-auto">
+                  <Link href="/#contact">
+                    İletişime Geçin
+                  </Link>
+                </Button>
+              </motion.div>
             </motion.div>
           </motion.div>
           

@@ -2,6 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 
 const services = [
   {
@@ -69,7 +72,7 @@ const Services = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <motion.div
               key={service.id}
@@ -81,62 +84,61 @@ const Services = () => {
               onHoverStart={() => setHoveredCard(service.id)}
               onHoverEnd={() => setHoveredCard(null)}
             >
-              <motion.div 
-                className="h-full p-6 rounded-2xl glass-effect border border-foreground/10 hover:border-primary/30 transition-all duration-300"
-                whileHover={{ y: -5 }}
-              >
-                <motion.div 
-                  className="text-4xl mb-4"
-                  animate={{ 
-                    scale: hoveredCard === service.id ? 1.2 : 1,
-                    rotate: hoveredCard === service.id ? 10 : 0
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {service.icon}
-                </motion.div>
-                
-                <h3 className="text-xl font-bold mb-3 text-foreground">
-                  {service.title}
-                </h3>
-                
-                <p className="text-secondary mb-4">
-                  {service.description}
-                </p>
-                
-                <motion.div 
-                  className="space-y-2"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ 
-                    opacity: hoveredCard === service.id ? 1 : 0,
-                    height: hoveredCard === service.id ? 'auto' : 0
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {service.features.map((feature, idx) => (
-                    <motion.div 
-                      key={idx}
-                      className="flex items-center text-sm text-primary"
-                      initial={{ x: -10, opacity: 0 }}
-                      animate={{ 
-                        x: hoveredCard === service.id ? 0 : -10,
-                        opacity: hoveredCard === service.id ? 1 : 0
-                      }}
-                      transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    >
-                      <span className="w-2 h-2 bg-primary rounded-full mr-2" />
-                      {feature}
-                    </motion.div>
-                  ))}
-                </motion.div>
-                
-                <motion.button 
-                  className="mt-4 text-primary font-medium hover:text-primary-dark transition-colors"
-                  whileHover={{ x: 5 }}
-                >
-                  Detaylar →
-                </motion.button>
-              </motion.div>
+              <Card className="h-full group-hover:shadow-lg transition-all duration-300 border-foreground/10 hover:border-primary/30">
+                <CardHeader>
+                  <motion.div 
+                    className="text-4xl mb-2"
+                    animate={{ 
+                      scale: hoveredCard === service.id ? 1.2 : 1,
+                      rotate: hoveredCard === service.id ? 10 : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {service.icon}
+                  </motion.div>
+                  <CardTitle className="text-xl">{service.title}</CardTitle>
+                  <CardDescription className="text-base">
+                    {service.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <motion.div 
+                    className="space-y-2 mb-4"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ 
+                      opacity: hoveredCard === service.id ? 1 : 0,
+                      height: hoveredCard === service.id ? 'auto' : 0
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="flex flex-wrap gap-1">
+                      {service.features.map((feature, idx) => (
+                        <motion.div
+                          key={idx}
+                          initial={{ x: -10, opacity: 0 }}
+                          animate={{ 
+                            x: hoveredCard === service.id ? 0 : -10,
+                            opacity: hoveredCard === service.id ? 1 : 0
+                          }}
+                          transition={{ duration: 0.3, delay: idx * 0.05 }}
+                        >
+                          <Badge variant="secondary" className="text-xs">
+                            {feature}
+                          </Badge>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div
+                    whileHover={{ x: 5 }}
+                  >
+                    <Button variant="link" className="p-0 h-auto text-primary font-medium">
+                      Detaylar →
+                    </Button>
+                  </motion.div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
@@ -148,13 +150,14 @@ const Services = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <motion.button 
-            className="px-8 py-3 rounded-full bg-primary text-white font-medium hover:bg-primary-dark transition-colors"
+          <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Tüm Hizmetleri Görüntüle
-          </motion.button>
+            <Button size="lg" className="rounded-full">
+              Tüm Hizmetleri Görüntüle
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </section>

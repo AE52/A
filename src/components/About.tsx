@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const About = () => {
   const teamMembers = [
@@ -78,18 +79,22 @@ const About = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div className="glass-effect rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-6">Hikayemiz</h3>
-            <p className="mb-4">
-              AESoftware, 2015 yılında Ali Eren Özdemir tarafından kuruldu. Başlangıçta küçük bir ekiple yola çıkan şirketimiz, zamanla büyüyerek Türkiye&apos;nin önde gelen yazılım şirketlerinden biri haline geldi.
-            </p>
-            <p className="mb-4">
-              Misyonumuz, işletmelerin dijital dönüşümünü en verimli şekilde gerçekleştirmelerine yardımcı olmak ve kullanıcı dostu, yenilikçi çözümler sunmaktır. Vizyonumuz ise global pazarda tanınan ve tercih edilen bir teknoloji şirketi olmaktır.
-            </p>
-            <p>
-              Bugüne kadar 200&apos;den fazla başarılı projeye imza attık ve 50&apos;den fazla kurumsal müşteriye hizmet verdik. Ekibimiz, alanında uzman 20 profesyonelden oluşmaktadır.
-            </p>
-          </div>
+          <Card className="border-foreground/10">
+            <CardHeader>
+              <CardTitle className="text-2xl">Hikayemiz</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p>
+                AESoftware, 2015 yılında Ali Eren Özdemir tarafından kuruldu. Başlangıçta küçük bir ekiple yola çıkan şirketimiz, zamanla büyüyerek Türkiye&apos;nin önde gelen yazılım şirketlerinden biri haline geldi.
+              </p>
+              <p>
+                Misyonumuz, işletmelerin dijital dönüşümünü en verimli şekilde gerçekleştirmelerine yardımcı olmak ve kullanıcı dostu, yenilikçi çözümler sunmaktır. Vizyonumuz ise global pazarda tanınan ve tercih edilen bir teknoloji şirketi olmaktır.
+              </p>
+              <p>
+                Bugüne kadar 200&apos;den fazla başarılı projeye imza attık ve 50&apos;den fazla kurumsal müşteriye hizmet verdik. Ekibimiz, alanında uzman 20 profesyonelden oluşmaktadır.
+              </p>
+            </CardContent>
+          </Card>
         </motion.div>
         
         {/* Company Values */}
@@ -108,16 +113,21 @@ const About = () => {
             {companyValues.map((value, index) => (
               <motion.div 
                 key={value.title}
-                className="card theme-transition"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
               >
-                <div className="text-4xl mb-4">{value.icon}</div>
-                <h4 className="text-xl font-bold mb-2">{value.title}</h4>
-                <p className="text-secondary">{value.description}</p>
+                <Card className="h-full text-center border-foreground/10 hover:shadow-lg transition-all duration-300">
+                  <CardHeader>
+                    <div className="text-4xl mb-2">{value.icon}</div>
+                    <CardTitle className="text-xl">{value.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <CardDescription className="text-base">{value.description}</CardDescription>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -139,25 +149,27 @@ const About = () => {
             {teamMembers.map((member, index) => (
               <motion.div 
                 key={member.name}
-                className="card theme-transition"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
                 whileHover={{ y: -5 }}
               >
-                <div className="relative w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
-                  <Image 
-                    src={member.image} 
-                    alt={member.name} 
-                    className="object-cover"
-                    width={96}
-                    height={96}
-                  />
-                </div>
-                <h4 className="text-xl font-bold mb-1 text-center">{member.name}</h4>
-                <p className="text-primary text-sm mb-3 text-center">{member.position}</p>
-                <p className="text-secondary text-center">{member.bio}</p>
+                <Card className="h-full text-center border-foreground/10 hover:shadow-lg transition-all duration-300">
+                  <CardHeader>
+                    <div className="flex justify-center mb-4">
+                      <Avatar className="w-24 h-24">
+                        <AvatarImage src={member.image} alt={member.name} />
+                        <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <CardTitle className="text-xl">{member.name}</CardTitle>
+                    <CardDescription className="text-primary font-medium">{member.position}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{member.bio}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
