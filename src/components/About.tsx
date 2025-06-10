@@ -191,11 +191,10 @@ const About = () => {
             Ekibimiz
           </motion.h3>
           
-          <div className="flex justify-center">
-            <div className="max-w-sm">
-              {teamMembers.map((member, index) => (
-                <motion.div 
-                  key={member.name}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {teamMembers.map((member, index) => (
+              <motion.div
+                key={member.name}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -223,7 +222,6 @@ const About = () => {
                   </Card>
                 </motion.div>
                ))}
-            </div>
           </div>
         </div>
       </div>
